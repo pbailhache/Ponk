@@ -13,6 +13,8 @@ public class Player extends Entity
 	@Override
 	public void update(float input_y) // On déplace le player avec son centre sur l'endroit ou le jouer à appuyé, pas de dx et dy
 	{
+		this.pos_y = input_y - this.height/2;
+		
 		checkInBoundaries();
 	}
 	

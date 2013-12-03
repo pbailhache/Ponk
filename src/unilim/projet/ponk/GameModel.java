@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import unilim.projet.ponk.Entity.*;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 
 public class GameModel 
@@ -45,15 +47,28 @@ public class GameModel
 	{
 		for(Entity e:entities)
 		{
+			if(e.getClass() == Ball.class)
+			{
+				for(Entity d:entities)
+				{
+					if (d != e)
+						((Ball) e).checkCollision(d);
+				}
+			}
+		}
+		
+		for(Entity e:entities)
+		{
 			if(e instanceof Player)
 			{
 				if (e == user)
-					e.update(user_y);
+					e.update(enemy_y);
 				else
 					e.update(enemy_y);
 			}
 			else
 			{
+				enemy_y = e.pos_y;
 				e.update();
 			}
 		}
@@ -63,6 +78,34 @@ public class GameModel
 	{
 		screen_width = screen.width();
 		screen_height = screen.height();
+		
+		ArrayList<Entity> TMPentities = new ArrayList<Entity>();
+		
+		int playerWidth = (int) (screen_width*0.05f);
+		int playerHeight = (int) (screen_height*0.15f);
+		
+		
+		for(Entity e:entities)
+		{
+			if(e instanceof Player)
+			{
+				if (e == user)
+				{
+					user = new Player(playerWidth,playerHeight, screen_width-2*playerWidth, (screen_height/2) -playerHeight, 0, 0, new Paint(Color.BLACK));
+					TMPentities.add(user);
+				}
+				else
+				{
+					TMPentities.add(new Player(playerWidth,playerHeight, playerWidth, (screen_height/2)-playerHeight, 0, 0, new Paint(Color.BLACK)));
+				}
+			}
+			else
+			{
+				TMPentities.add(e);
+			}
+		}
+		
+		entities = TMPentities;
 		
 		for(Entity e:entities)
 		{

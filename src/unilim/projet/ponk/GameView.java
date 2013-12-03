@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.view.View;
 
 public class GameView extends SurfaceView implements Callback{
 
@@ -22,14 +23,16 @@ public class GameView extends SurfaceView implements Callback{
 	
 	private GameModel model;
 	
+	private OnTouchListener touchListener;
+	
 	private GameModel createModel(SurfaceHolder holder)
 	{
-		int playerWidth = (int) (holder.getSurfaceFrame().width()*0.02f);
-		int playerHeight = (int) (holder.getSurfaceFrame().height()*0.2f);
-		int ballSize = (int) (playerHeight*0.2f);
+		
+		int playerWidth = (int) (holder.getSurfaceFrame().width()*0.05f);
+		int playerHeight = (int) (holder.getSurfaceFrame().height()*0.15f);
+		int ballSize = (int) (playerHeight*0.15f);
 		int ballDelta = (int) (ballSize*0.2f);
-		
-		
+
 		return (new GameModel(holder.getSurfaceFrame(), 
 					new Player(playerWidth,playerHeight, holder.getSurfaceFrame().width()-2*playerWidth*1.5f, (holder.getSurfaceFrame().height()/2) -playerHeight, 0, 0, new Paint(Color.BLACK)), 
 					new Player(playerWidth,playerHeight, playerWidth*1.5f, (holder.getSurfaceFrame().height()/2)-playerHeight, 0, 0, new Paint(Color.BLACK)), 
@@ -67,6 +70,7 @@ public class GameView extends SurfaceView implements Callback{
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
+		model.screenModified(holder.getSurfaceFrame());
 		// TODO Auto-generated method stub
 		
 	}
@@ -76,11 +80,28 @@ public class GameView extends SurfaceView implements Callback{
 		// TODO Auto-generated method stub
 		 try {
 			 model = createModel(holder);
+			 
+			 model.screenModified(holder.getSurfaceFrame());
+			  // Une fois qu'on a cree le model on peut ajouter le listener pour retrouver les coordonnées du player
+			 touchListener = new OnTouchListener() {
+					@Override
+					public boolean onTouch(View v, MotionEvent event) 
+					{
+						//Log.v("Y = ",""+event.getY());
+						model.user_y = event.getY();
+						return true;
+					}
+				};
+				
+			this.setOnTouchListener(touchListener);
+			
 			 thread.setRunning(true);
 		     thread.start();
          } catch (IllegalThreadStateException e) {
          }
 	}
+	
+	
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
