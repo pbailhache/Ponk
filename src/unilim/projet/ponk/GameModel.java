@@ -62,7 +62,7 @@ public class GameModel
 			if(e instanceof Player)
 			{
 				if (e == user)
-					e.update(enemy_y);
+					e.update(user_y);
 				else
 					e.update(enemy_y);
 			}

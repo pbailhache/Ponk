@@ -1,3 +1,7 @@
+/*
+ * 
+ */
+
 package unilim.projet.ponk;
 
 import java.util.Random;
@@ -25,6 +29,9 @@ public class GameView extends SurfaceView implements Callback{
 	
 	private OnTouchListener touchListener;
 	
+	/*
+	 * 
+	 */
 	private GameModel createModel(SurfaceHolder holder)
 	{
 		
