@@ -41,9 +41,9 @@ public class GameView extends SurfaceView implements Callback{
 		int ballDelta = (int) (ballSize*0.2f);
 
 		return (new GameModel(holder.getSurfaceFrame(), 
-					new Player(playerWidth,playerHeight, holder.getSurfaceFrame().width()-2*playerWidth*1.5f, (holder.getSurfaceFrame().height()/2) -playerHeight, 0, 0, new Paint(Color.BLACK)), 
-					new Player(playerWidth,playerHeight, playerWidth*1.5f, (holder.getSurfaceFrame().height()/2)-playerHeight, 0, 0, new Paint(Color.BLACK)), 
-					new Ball(ballSize, ballSize, (holder.getSurfaceFrame().width()/2)-ballSize, (holder.getSurfaceFrame().height()/2)-ballSize, ballDelta, ballDelta, new Paint(Color.BLACK))));
+					new Player(playerWidth,playerHeight, holder.getSurfaceFrame().width()-2*playerWidth*1.5f, (holder.getSurfaceFrame().height()/2) -playerHeight, 0, 0, new Paint(Color.CYAN)), 
+					new Player(playerWidth,playerHeight, playerWidth*1.5f, (holder.getSurfaceFrame().height()/2)-playerHeight, 0, 0, new Paint(Color.CYAN)), 
+					new Ball(ballSize, ballSize, (holder.getSurfaceFrame().width()/2)-ballSize, (holder.getSurfaceFrame().height()/2)-ballSize, ballDelta, ballDelta, new Paint(Color.CYAN))));
 		
 	}
 	

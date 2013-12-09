@@ -6,9 +6,9 @@ import android.util.Log;
 
 public class Ball extends Entity
 {
-	public static float maxSpeedRatio = 1.5f;
-	public static float speedRatio = -1.5f;
-	public static float dyAngleRatio = 2f;
+	public static float maxSpeedRatio = 1f;
+	public static float speedRatio = -1.1f;
+	public static float dyAngleRatio = 3f;
 	
 	public Ball(int w, int h, float x, float y, float dx, float dy,
 			Paint paint) {
@@ -25,7 +25,7 @@ public class Ball extends Entity
 		
 		impact_ratio= Math.max(impact_ratio-50f,impact_ratio);
 		
-		return Math.min(this.dy*(dyAngleRatio - impact_ratio/100*dyAngleRatio),this.width*maxSpeedRatio);
+		return Math.min(this.dy*(impact_ratio/100*dyAngleRatio),this.width*maxSpeedRatio);
 	}
 	
 	public boolean checkCollision(Entity e) //Collison en axis X
@@ -35,7 +35,7 @@ public class Ball extends Entity
 		 {
 			 if(this.pos_x < e.pos_x+e.width && this.pos_y < e.pos_y+e.height && this.pos_y + this.height > e.pos_y)
 			 {
-				 this.pos_x = e.pos_x+e.width + ((int)this.width*0.1f);
+				 this.pos_x = e.pos_x+this.width + ((int)this.width*0.1f);
 				 
 				 this.dy = calculDy(this.pos_y,e.pos_y,e.height);
 			        

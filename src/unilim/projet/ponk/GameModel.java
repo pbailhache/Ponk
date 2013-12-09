@@ -1,6 +1,7 @@
 package unilim.projet.ponk;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import unilim.projet.ponk.Entity.*;
 import android.graphics.Canvas;
@@ -52,7 +53,10 @@ public class GameModel
 				for(Entity d:entities)
 				{
 					if (d != e)
-						((Ball) e).checkCollision(d);
+						if(((Ball) e).checkCollision(d))
+						{
+							((Player) d).randomDecalageIA = new Random().nextFloat()*d.height/2 - d.height/2 ;
+						}
 				}
 			}
 		}
@@ -62,12 +66,13 @@ public class GameModel
 			if(e instanceof Player)
 			{
 				if (e == user)
-					e.update(user_y);
+					e.update(enemy_y+((Player)e).randomDecalageIA);
 				else
-					e.update(enemy_y);
+					e.update(enemy_y+((Player)e).randomDecalageIA);
 			}
 			else
 			{
+				
 				enemy_y = e.pos_y;
 				e.update();
 			}
@@ -91,12 +96,12 @@ public class GameModel
 			{
 				if (e == user)
 				{
-					user = new Player(playerWidth,playerHeight, screen_width-2*playerWidth, (screen_height/2) -playerHeight, 0, 0, new Paint(Color.BLACK));
+					user = new Player(playerWidth,playerHeight, screen_width-2*playerWidth, (screen_height/2) -playerHeight, 0, 0, new Paint(Color.WHITE));
 					TMPentities.add(user);
 				}
 				else
 				{
-					TMPentities.add(new Player(playerWidth,playerHeight, playerWidth, (screen_height/2)-playerHeight, 0, 0, new Paint(Color.BLACK)));
+					TMPentities.add(new Player(playerWidth,playerHeight, playerWidth, (screen_height/2)-playerHeight, 0, 0, new Paint(Color.WHITE)));
 				}
 			}
 			else

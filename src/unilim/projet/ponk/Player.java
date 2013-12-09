@@ -4,6 +4,8 @@ import android.graphics.Paint;
 
 public class Player extends Entity
 {
+	public float randomDecalageIA = 0;
+	
 	public Player(int w, int h, float x, float y, float dx, float dy,
 			Paint paint) {
 		super(w, h, x, y, dx, dy, paint);

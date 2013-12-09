@@ -43,25 +43,25 @@ public abstract class Entity
 	public void checkInBoundaries()
 	{
 		
-		if(this.pos_x < 0)
+		if(this.pos_x <= 0)
 		{
-			this.pos_x = 0;
+			this.pos_x = 1;
 			dx *= -1;
 		}
-		if (this.pos_x+this.width > this.screen_width)
+		if (this.pos_x+this.width >= this.screen_width)
 		{
-			this.pos_x = this.screen_width - this.width;
+			this.pos_x = this.screen_width - this.width-1;
 			dx *= -1;
 		}
-		if(this.pos_y < 0)
+		if(this.pos_y <= 0)
 		{
 			dy *= -1;
-			this.pos_y = 0;
+			this.pos_y = 1;
 		}
-		if (this.pos_y+this.height > this.screen_height)
+		if (this.pos_y+this.height >= this.screen_height)
 		{
 			dy *= -1;
-			this.pos_y = this.screen_height - this.height;
+			this.pos_y = this.screen_height - this.height -1;
 		}
 	}
 	
