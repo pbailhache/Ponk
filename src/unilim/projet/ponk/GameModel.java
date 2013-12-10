@@ -11,6 +11,11 @@ import android.graphics.Rect;
 
 public class GameModel 
 {
+	public static float playerWidthRatio = 0.05f;
+	public static float playerHeightRatio = 0.15f;
+	public static float ballSizeRatio = 0.15f;
+	public static float initialBallSpeedRatio = 0.2f;
+	
 	private ArrayList<Entity> entities;
 		
 	private Player user;
@@ -66,9 +71,9 @@ public class GameModel
 			if(e instanceof Player)
 			{
 				if (e == user)
-					e.update(enemy_y+((Player)e).randomDecalageIA);
+					e.update(user_y);
 				else
-					e.update(enemy_y+((Player)e).randomDecalageIA);
+					e.update(user_y);
 			}
 			else
 			{
@@ -79,6 +84,19 @@ public class GameModel
 		}
 	}
 	
+	public static GameModel createModel(Rect screen)
+	{
+		int playerWidth = (int) (screen.width()*GameModel.playerWidthRatio); 
+		int playerHeight = (int) (screen.height()*GameModel.playerHeightRatio); 
+		int ballSize = (int) (playerHeight*GameModel.ballSizeRatio); 
+		int ballDelta = (int) (ballSize*GameModel.initialBallSpeedRatio);
+		
+		return (new GameModel(screen, 
+					new Player(playerWidth,playerHeight, screen.width()-2*playerWidth*1.5f, (screen.height()/2) -playerHeight, 0, 0, GameView.playerP), 
+					new Player(playerWidth,playerHeight, playerWidth*1.5f, (screen.height()/2)-playerHeight, 0, 0, GameView.playerP), 
+					new Ball(ballSize, ballSize, (screen.width()/2)-ballSize, (screen.height()/2)-ballSize, ballDelta, ballDelta,GameView.ballP)));
+	}
+	
 	public void screenModified(Rect screen)
 	{
 		screen_width = screen.width();
@@ -86,8 +104,9 @@ public class GameModel
 		
 		ArrayList<Entity> TMPentities = new ArrayList<Entity>();
 		
-		int playerWidth = (int) (screen_width*0.05f);
-		int playerHeight = (int) (screen_height*0.15f);
+		int playerWidth = (int) (screen_width*GameModel.playerWidthRatio);
+		int playerHeight = (int) (screen_height*GameModel.playerHeightRatio);
+		
 		
 		
 		for(Entity e:entities)
@@ -96,12 +115,12 @@ public class GameModel
 			{
 				if (e == user)
 				{
-					user = new Player(playerWidth,playerHeight, screen_width-2*playerWidth, (screen_height/2) -playerHeight, 0, 0, new Paint(Color.WHITE));
+					user = new Player(playerWidth,playerHeight, screen_width-2*playerWidth, (screen_height/2) -playerHeight, 0, 0, GameView.playerP);
 					TMPentities.add(user);
 				}
 				else
 				{
-					TMPentities.add(new Player(playerWidth,playerHeight, playerWidth, (screen_height/2)-playerHeight, 0, 0, new Paint(Color.WHITE)));
+					TMPentities.add(new Player(playerWidth,playerHeight, playerWidth, (screen_height/2)-playerHeight, 0, 0, GameView.ballP));
 				}
 			}
 			else

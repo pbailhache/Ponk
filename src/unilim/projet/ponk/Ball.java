@@ -1,5 +1,7 @@
 package unilim.projet.ponk;
 
+import java.util.Random;
+
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
@@ -7,8 +9,9 @@ import android.util.Log;
 public class Ball extends Entity
 {
 	public static float maxSpeedRatio = 1f;
-	public static float speedRatio = -1.1f;
-	public static float dyAngleRatio = 3f;
+	public static float speedRatio = -1.0000001f;
+	public static float dyAngleRatio = 1.5f;
+	public static float rePopRatio = 0.5f;
 	
 	public Ball(int w, int h, float x, float y, float dx, float dy,
 			Paint paint) {
@@ -19,13 +22,31 @@ public class Ball extends Entity
 	/*
 	 * Return dy from impact with paddle
 	 */
-	private float calculDy(float impact_y, float p_y, float p_height)
+	private float calculDy(float impact_y, float bot, float p_height)
 	{
-		float impact_ratio = ((impact_y-p_y) / p_height) * 100;
+		float top = bot +p_height;
+		float mid = (top+bot)/2 + bot;
 		
-		impact_ratio= Math.max(impact_ratio-50f,impact_ratio);
 		
-		return Math.min(this.dy*(impact_ratio/100*dyAngleRatio),this.width*maxSpeedRatio);
+		float impact_ratio ;
+		if (impact_y > mid)
+		{
+			impact_ratio = 1 - (top-impact_y)/(top-mid);
+		}
+		else
+		{
+			impact_ratio = 1 - (impact_y-bot)/(mid - bot); 
+		}
+		
+		Log.v("RATIO",""+impact_ratio);
+		if (dy <= 0)
+		{
+			return (this.dy*(impact_ratio*dyAngleRatio));
+		}
+		else
+		{
+			return (this.dy*(impact_ratio*dyAngleRatio));
+		}
 	}
 	
 	public boolean checkCollision(Entity e) //Collison en axis X
@@ -33,9 +54,41 @@ public class Ball extends Entity
 		//Log.v("Ball coord = ", "|X="+this.pos_x+"|Y="+this.pos_y+"|W="+this.width+"|H="+this.height+"|DX="+this.dx+"|DY="+this.dy+"|SCREEN W="+this.screen_width+"|SCREEN H="+this.screen_height);
 		 if( e.pos_x < this.screen_width/2) // GAUCHE DE l'écran
 		 {
+			 if(this.pos_x < e.pos_x && (this.pos_y > e.pos_y+e.height || this.pos_y + this.height < e.pos_y))
+			 {
+				 GameView.scorePlayerOne++;
+				 
+				 int ballDelta = (int) (this.width*GameModel.initialBallSpeedRatio);
+				 
+				 this.pos_x = (this.screen_width/2)-this.width;
+				 this.pos_y = (this.screen_height/2)-this.width;
+				 Random rnd = new Random();
+				 
+				 if (rnd.nextBoolean())
+				 {
+					 this.dx = -ballDelta;
+				 }
+				 else
+				 {
+					 this.dx = ballDelta;
+				 }
+				 
+
+				 if (rnd.nextBoolean())
+				 {
+					 this.dy = -ballDelta;
+				 }
+				 else
+				 {
+					 this.dy = ballDelta;
+				 }
+				 
+				 return true;
+			 }
+			 
 			 if(this.pos_x < e.pos_x+e.width && this.pos_y < e.pos_y+e.height && this.pos_y + this.height > e.pos_y)
 			 {
-				 this.pos_x = e.pos_x+this.width + ((int)this.width*0.1f);
+				 this.pos_x = e.pos_x+this.width + ((int)this.width*rePopRatio);
 				 
 				 this.dy = calculDy(this.pos_y,e.pos_y,e.height);
 			        
@@ -45,9 +98,42 @@ public class Ball extends Entity
 		 }
 		 else
 		 {
+			 
+			 if(this.pos_x > e.pos_x + e.width && (this.pos_y > e.pos_y+e.height || this.pos_y + this.height < e.pos_y))
+			 {
+				 GameView.scorePlayerTwo++;
+				 
+				 int ballDelta = (int) (this.width*GameModel.initialBallSpeedRatio);
+				 
+				 this.pos_x = (this.screen_width/2)-this.width;
+				 this.pos_y = (this.screen_height/2)-this.width;
+				 Random rnd = new Random();
+				 
+				 if (rnd.nextBoolean())
+				 {
+					 this.dx = -ballDelta;
+				 }
+				 else
+				 {
+					 this.dx = ballDelta;
+				 }
+				 
+
+				 if (rnd.nextBoolean())
+				 {
+					 this.dy = -ballDelta;
+				 }
+				 else
+				 {
+					 this.dy = ballDelta;
+				 }
+				 
+				 return true;
+			 }
+			 
 			 if(this.pos_x + this.width > e.pos_x && this.pos_y  < e.pos_y+e.height && this.pos_y + this.height > e.pos_y)
 			 {
-				 this.pos_x = e.pos_x-this.width - ((int)this.width*0.1f);
+				 this.pos_x = e.pos_x-this.width - ((int)this.width*rePopRatio);
 				 
 				 this.dy = calculDy(this.pos_y,e.pos_y,e.height);
 				 

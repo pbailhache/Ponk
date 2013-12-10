@@ -12,6 +12,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -29,30 +31,31 @@ public class GameView extends SurfaceView implements Callback{
 	
 	private OnTouchListener touchListener;
 	
+	public static int playerColor = Color.WHITE;
+	public static int ballColor = Color.WHITE;
+	public static int backgroundColor = Color.BLACK;
+	
+	private Typeface font ;
+	private float fontSize = 72;
+	private Paint fontPaint ;
+	public static int fontColor = Color.WHITE;
+	
+	public static int scorePlayerOne= 0;
+	public static int scorePlayerTwo = 0;
+	
+	public static Paint playerP = new Paint();
+	public static Paint ballP = new Paint();
+	
 	/*
 	 * 
 	 */
-	private GameModel createModel(SurfaceHolder holder)
-	{
-		
-		int playerWidth = (int) (holder.getSurfaceFrame().width()*0.05f);
-		int playerHeight = (int) (holder.getSurfaceFrame().height()*0.15f);
-		int ballSize = (int) (playerHeight*0.15f);
-		int ballDelta = (int) (ballSize*0.2f);
-
-		return (new GameModel(holder.getSurfaceFrame(), 
-					new Player(playerWidth,playerHeight, holder.getSurfaceFrame().width()-2*playerWidth*1.5f, (holder.getSurfaceFrame().height()/2) -playerHeight, 0, 0, new Paint(Color.CYAN)), 
-					new Player(playerWidth,playerHeight, playerWidth*1.5f, (holder.getSurfaceFrame().height()/2)-playerHeight, 0, 0, new Paint(Color.CYAN)), 
-					new Ball(ballSize, ballSize, (holder.getSurfaceFrame().width()/2)-ballSize, (holder.getSurfaceFrame().height()/2)-ballSize, ballDelta, ballDelta, new Paint(Color.CYAN))));
-		
-	}
 	
 	public GameView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		SurfaceHolder holder = getHolder();
-		holder.addCallback(this);	    
-	    thread = new GameThread(holder);
+//		holder.addCallback(this);	    
+//	    thread = new GameThread(holder);
 	}
 	
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
@@ -61,14 +64,22 @@ public class GameView extends SurfaceView implements Callback{
 	    
 
 	    SurfaceHolder holder = getHolder();
-		holder.addCallback(this);
-	    thread = new GameThread(holder);
+//		holder.addCallback(this);
+//	    thread = new GameThread(holder);
 	}
 
 	public GameView(Context context, AttributeSet attrs) {
 	    super(context, attrs);
 	    // TODO Auto-generated constructor stub   
-
+	    font = Typeface.createFromAsset(getContext().getAssets(), "fonts/type_writer.ttf");
+	    fontPaint = new Paint();
+	    fontPaint.setColor(fontColor);
+	    fontPaint.setTextSize(fontSize);
+	    fontPaint.setTypeface(font);
+	    scorePlayerOne= 0;
+		scorePlayerTwo = 0;
+	    
+	    
 	    SurfaceHolder holder = getHolder();
 		holder.addCallback(this);
 	    thread = new GameThread(holder);
@@ -86,7 +97,9 @@ public class GameView extends SurfaceView implements Callback{
 	public void surfaceCreated(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
 		 try {
-			 model = createModel(holder);
+			 GameView.playerP.setColor(GameView.playerColor);
+			 GameView.ballP.setColor(GameView.ballColor);
+			 model = GameModel.createModel(holder.getSurfaceFrame());
 			 
 			 model.screenModified(holder.getSurfaceFrame());
 			  // Une fois qu'on a cree le model on peut ajouter le listener pour retrouver les coordonnées du player
@@ -161,7 +174,10 @@ public class GameView extends SurfaceView implements Callback{
             //clear the canvas
         	if (canvas != null)
         	{
-	            canvas.drawColor(Color.WHITE);                        
+    
+	            canvas.drawColor(backgroundColor);
+	            canvas.drawText(""+scorePlayerOne, canvas.getWidth()/2-2*fontSize, 72, fontPaint);
+	            canvas.drawText(""+scorePlayerTwo, canvas.getWidth()/2+1*fontSize, 72, fontPaint);
 	            model.draw(canvas);
         	}
             
