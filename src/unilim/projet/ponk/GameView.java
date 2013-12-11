@@ -1,4 +1,4 @@
-/*
+/**
  * 
  */
 
@@ -26,7 +26,6 @@ public class GameView extends SurfaceView implements Callback{
 
 	private GameThread thread;
 	private Canvas canvas;
-	
 	private GameModel model;
 	
 	private OnTouchListener touchListener;
@@ -47,31 +46,20 @@ public class GameView extends SurfaceView implements Callback{
 	public static Paint playerP = new Paint();
 	public static Paint ballP = new Paint();
 	
-	/*
-	 * 
-	 */
-	
 	public GameView(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
-		SurfaceHolder holder = getHolder();
-//		holder.addCallback(this);	    
-//	    thread = new GameThread(holder);
 	}
 	
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
-	    // TODO Auto-generated constructor stub
-	    
-
-	    SurfaceHolder holder = getHolder();
-//		holder.addCallback(this);
-//	    thread = new GameThread(holder);
 	}
 
+	
+	/**
+	 * Create and add the surface Holder for GameThread
+	 */
 	public GameView(Context context, AttributeSet attrs) {
 	    super(context, attrs);
-	    // TODO Auto-generated constructor stub   
 	    font = Typeface.createFromAsset(getContext().getAssets(), "fonts/type_writer.ttf");
 	    fontPaint = new Paint();
 	    fontPaint.setColor(fontColor);
@@ -139,6 +127,9 @@ public class GameView extends SurfaceView implements Callback{
 		
 	}
 
+	/**
+	 * Thread class which do all the game loop
+	 */
 	class GameThread extends Thread {
         private  boolean mRun;       
         private SurfaceHolder mSurfaceHolder;        
@@ -169,7 +160,10 @@ public class GameView extends SurfaceView implements Callback{
                 }
             }
         }
-
+        
+        /**
+         * Draw Game from model (see model in GameView)
+         */
         private void doDraw(Canvas canvas) 
         {
             //clear the canvas
@@ -177,6 +171,7 @@ public class GameView extends SurfaceView implements Callback{
         	{
     
 	            canvas.drawColor(backgroundColor);
+<<<<<<< HEAD
 	            canvas.drawText(""+scorePlayerTwo, canvas.getWidth()/2-3*fontSize, 72, fontPaint);
 	            canvas.drawText(""+scorePlayerOne, canvas.getWidth()/2+2*fontSize, 72, fontPaint);
 	            int value = 0 ;
@@ -185,10 +180,15 @@ public class GameView extends SurfaceView implements Callback{
 	            	value += 20 ;
 	            }
 	            
+=======
+	            canvas.drawText(""+scorePlayerOne, canvas.getWidth()/2-2*fontSize, 72, fontPaint);
+	            canvas.drawText(""+scorePlayerTwo, canvas.getWidth()/2+2*fontSize, 72, fontPaint);
+>>>>>>> f54c557ef4eb5dbbd0f6d151954d4b1b30ca6250
 	            model.draw(canvas);
         	}
             
         }
+        
         public void setRunning(boolean b) {
             mRun = b;
         }

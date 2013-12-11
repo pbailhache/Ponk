@@ -20,7 +20,7 @@ public class GameModel
 		
 	private Player user;
 	
-	public float user_y;
+	public static float user_y;
 	
 	public float enemy_y;
 	
@@ -38,8 +38,8 @@ public class GameModel
 		entities.add(p2);
 		user = p1;
 		entities.add(b);
-		user_y = screen_height/2; // On poisitionne le player au milieu de l'écran
-		enemy_y = screen_height/2; // On poisitionne le player au milieu de l'écran
+		user_y = screen_height/2; // On positionne le player au milieu de l'écran
+		enemy_y = screen_height/2; // On positionne le player au milieu de l'écran
 		this.screenModified(screen);
 	}
 	
@@ -51,6 +51,9 @@ public class GameModel
 		}
 	}
 	
+	/**
+	 * Update position and check for collision through entities
+	 */
 	public void update()
 	{
 		for(Entity e:entities)
@@ -85,6 +88,10 @@ public class GameModel
 		}
 	}
 	
+	
+	/**
+	 * Re-create a model from constants. Use it when changing these constants or creating the model
+	 */
 	public static GameModel createModel(Rect screen)
 	{
 		int playerWidth = (int) (screen.width()*GameModel.playerWidthRatio); 
@@ -98,6 +105,9 @@ public class GameModel
 					new Ball(ballSize, ballSize, (screen.width()/2)-ballSize, (screen.height()/2)-ballSize, ballDelta, ballDelta,GameView.ballP)));
 	}
 	
+	/**
+	 * Update each entity with the proper screen size (conserving ratios)
+	 */
 	public void screenModified(Rect screen)
 	{
 		screen_width = screen.width();

@@ -8,13 +8,12 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
+ * Activity which host the GameView and the UDP Server
  */
 public class GameActivity extends Activity {
 
+	public ServerUDP t;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,8 +23,22 @@ public class GameActivity extends Activity {
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		setContentView(R.layout.activity_game);
-	
-
+		t = new ServerUDP();
+		t.setRunning(true);
+        t.start();
 	}
-
+	
+	@Override
+	protected void onPause()
+	{
+		boolean retry = true;
+        t.setRunning(false);
+        while (retry) {
+            try {
+                t.join();
+                retry = false;
+            } catch (InterruptedException e) {
+            }
+        }
+	}
 }
