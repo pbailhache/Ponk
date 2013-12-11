@@ -42,6 +42,7 @@ public class GameView extends SurfaceView implements Callback{
 	
 	public static int scorePlayerOne= 0;
 	public static int scorePlayerTwo = 0;
+	public static int maxScore = 5 ;
 	
 	public static Paint playerP = new Paint();
 	public static Paint ballP = new Paint();
@@ -78,7 +79,7 @@ public class GameView extends SurfaceView implements Callback{
 	    fontPaint.setTypeface(font);
 	    scorePlayerOne= 0;
 		scorePlayerTwo = 0;
-	    
+	
 	    
 	    SurfaceHolder holder = getHolder();
 		holder.addCallback(this);
@@ -139,7 +140,7 @@ public class GameView extends SurfaceView implements Callback{
 	}
 
 	class GameThread extends Thread {
-        private boolean mRun;       
+        private  boolean mRun;       
         private SurfaceHolder mSurfaceHolder;        
 
         public GameThread(SurfaceHolder surfaceHolder) {
@@ -176,8 +177,14 @@ public class GameView extends SurfaceView implements Callback{
         	{
     
 	            canvas.drawColor(backgroundColor);
-	            canvas.drawText(""+scorePlayerOne, canvas.getWidth()/2-2*fontSize, 72, fontPaint);
-	            canvas.drawText(""+scorePlayerTwo, canvas.getWidth()/2+1*fontSize, 72, fontPaint);
+	            canvas.drawText(""+scorePlayerTwo, canvas.getWidth()/2-3*fontSize, 72, fontPaint);
+	            canvas.drawText(""+scorePlayerOne, canvas.getWidth()/2+2*fontSize, 72, fontPaint);
+	            int value = 0 ;
+	            while (  value < canvas.getHeight()){
+	            	canvas.drawRect(canvas.getWidth()/2-1, value, canvas.getWidth()/2+1, (value + 10), fontPaint);
+	            	value += 20 ;
+	            }
+	            
 	            model.draw(canvas);
         	}
             

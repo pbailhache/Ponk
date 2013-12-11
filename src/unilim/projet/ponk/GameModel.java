@@ -11,7 +11,7 @@ import android.graphics.Rect;
 
 public class GameModel 
 {
-	public static float playerWidthRatio = 0.05f;
+	public static float playerWidthRatio = 0.04f;
 	public static float playerHeightRatio = 0.15f;
 	public static float ballSizeRatio = 0.15f;
 	public static float initialBallSpeedRatio = 0.2f;
@@ -27,8 +27,10 @@ public class GameModel
 	public float screen_width;
 	public float screen_height;
 	
+	
 	public GameModel(Rect screen, Player p1,Player p2,Ball b)
 	{
+		
 		screen_width = screen.width();
 		screen_height = screen.height();
 		entities = new ArrayList<Entity>();
@@ -76,8 +78,7 @@ public class GameModel
 					e.update(user_y);
 			}
 			else
-			{
-				
+			{				
 				enemy_y = e.pos_y;
 				e.update();
 			}

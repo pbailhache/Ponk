@@ -57,30 +57,35 @@ public class Ball extends Entity
 			 if(this.pos_x < e.pos_x && (this.pos_y > e.pos_y+e.height || this.pos_y + this.height < e.pos_y))
 			 {
 				 GameView.scorePlayerOne++;
-				 
-				 int ballDelta = (int) (this.width*GameModel.initialBallSpeedRatio);
-				 
-				 this.pos_x = (this.screen_width/2)-this.width;
-				 this.pos_y = (this.screen_height/2)-this.width;
-				 Random rnd = new Random();
-				 
-				 if (rnd.nextBoolean())
-				 {
-					 this.dx = -ballDelta;
+				 if ( GameView.scorePlayerOne==GameView.maxScore){
+					// Stop thread le jeu est fini
+					 
 				 }
-				 else
-				 {
-					 this.dx = ballDelta;
-				 }
-				 
-
-				 if (rnd.nextBoolean())
-				 {
-					 this.dy = -ballDelta;
-				 }
-				 else
-				 {
-					 this.dy = ballDelta;
+				 else {
+					 int ballDelta = (int) (this.width*GameModel.initialBallSpeedRatio);
+					 
+					 this.pos_x = (this.screen_width/2)-this.width;
+					 this.pos_y = (this.screen_height/2)-this.width;
+					 Random rnd = new Random();
+					 
+					 if (rnd.nextBoolean())
+					 {
+						 this.dx = -ballDelta;
+					 }
+					 else
+					 {
+						 this.dx = ballDelta;
+					 }
+					 
+	
+					 if (rnd.nextBoolean())
+					 {
+						 this.dy = -ballDelta;
+					 }
+					 else
+					 {
+						 this.dy = ballDelta;
+					 }
 				 }
 				 
 				 return true;

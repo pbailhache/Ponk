@@ -11,13 +11,14 @@ import android.widget.Button;
 public class MainMenu extends Activity 
 {
 
-	private Button start, quit,settings;
+	private Button start, quit,settings, startIA;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
-		start = (Button)findViewById(R.id.start);
+		start = (Button)findViewById(R.id.startPalyer);
+		startIA = (Button)findViewById(R.id.startIA);
 		quit = (Button)findViewById(R.id.quit);
 		settings = (Button)findViewById(R.id.settings);
 		
@@ -32,6 +33,11 @@ public class MainMenu extends Activity
 	
 	public void start(View v)
 	{
+		Intent intent = new Intent(this, GameActivity.class);
+		startActivity(intent);
+	}
+	
+	public void startIA(View v){
 		Intent intent = new Intent(this, GameActivity.class);
 		startActivity(intent);
 	}
