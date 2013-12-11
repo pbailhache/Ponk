@@ -177,7 +177,7 @@ public class GameView extends SurfaceView implements Callback{
     
 	            canvas.drawColor(backgroundColor);
 	            canvas.drawText(""+scorePlayerOne, canvas.getWidth()/2-2*fontSize, 72, fontPaint);
-	            canvas.drawText(""+scorePlayerTwo, canvas.getWidth()/2+1*fontSize, 72, fontPaint);
+	            canvas.drawText(""+scorePlayerTwo, canvas.getWidth()/2+2*fontSize, 72, fontPaint);
 	            model.draw(canvas);
         	}
             
