@@ -40,6 +40,9 @@ public abstract class Entity
 		pos_y+=dy;
 	}
 	
+	/**
+	 * Check if entity is on screen and keep it inside.
+	 */
 	public void checkInBoundaries()
 	{
 		
@@ -71,6 +74,9 @@ public abstract class Entity
 		canvas.drawRect(this.pos_x,this.pos_y,this.pos_x+this.width,this.pos_y+this.height,this.paint);
 	}
 
+	/**
+	 * Change the screen value (used for checkBoundaries)
+	 */
 	public void setScreen(float screen_width, float screen_height) 
 	{
 		this.screen_width = screen_width;
