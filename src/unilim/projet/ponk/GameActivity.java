@@ -25,20 +25,41 @@ public class GameActivity extends Activity {
 		setContentView(R.layout.activity_game);
 		t = new ServerUDP();
 		t.setRunning(true);
+		try
+		{
         t.start();
+		}catch(Exception e)
+		{
+			Log.v("laucnh","FSDFGSF");
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
 	protected void onPause()
 	{
-		boolean retry = true;
+		super.onPause();
+		Log.v("activity","Game Activity on Pause");
         t.setRunning(false);
-        while (retry) {
-            try {
-                t.join();
-                retry = false;
-            } catch (InterruptedException e) {
-            }
-        }
+        t.interrupt();
+	}
+	
+	
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		t.setRunning(false);
+	    t.interrupt();
+
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+//		t = new ServerUDP();
+//		t.setRunning(true);
+//        t.start();
 	}
 }
