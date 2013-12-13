@@ -195,15 +195,14 @@ public class SettingsMenu extends Activity {
 		GameModel.ballSizeRatio=((float)mySeekBarBall.getProgress()/100);
 		GameModel.initialBallSpeedRatio=((float)mySeekBarSpeedBall.getProgress()/100);
 		GameModel.playerHeightRatio=((float)mySeekBarPlayer.getProgress()/100);
-		
+		finish();
 	}
 
 	/**
 	 * @param v
 	 */
 	public void onClickQuit(View v){
-		Intent intent = new Intent(this, MainMenu.class);
-		startActivity(intent);
+		finish();
 	}
 
 }

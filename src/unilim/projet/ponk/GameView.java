@@ -202,6 +202,9 @@ public class GameView extends SurfaceView implements Callback{
 	            	canvas.drawRect(canvas.getWidth()/2-1, value, canvas.getWidth()/2+1, (value + 10), fontPaint);
 	            	value += 20 ;
 	            }
+	            if ( GameActivity.bpause){
+		            canvas.drawText("PAUSE", canvas.getWidth()/2-2*fontSize, canvas.getHeight()/2-2*fontSize, fontPaint);
+	            }
 	            model.draw(canvas);
         	}
             

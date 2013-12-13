@@ -81,5 +81,14 @@ public class MainMenu extends Activity
 		Intent intent = new Intent(this, SettingsMenu.class);
 		startActivity(intent);
 	}
-
+	
+	/**
+	 * @param v
+	 */
+	public void help(View v)
+	{
+		Intent intent = new Intent(this, MenuHelp.class);
+		startActivity(intent);
+	}
+	
 }

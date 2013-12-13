@@ -77,63 +77,65 @@ public class GameModel
 	 */
 	public void update()
 	{
-		for(Entity e:entities)
-		{
-			if(e.getClass() == Ball.class)
+		if ( !GameActivity.bpause ){
+			for(Entity e:entities)
 			{
-				for(Entity d:entities)
+				if(e.getClass() == Ball.class)
 				{
-					if (d != e)
-						if(((Ball) e).checkCollision(d))
-						{
-							((Player) d).randomDecalageIA = new Random().nextFloat()*d.height/2 - d.height/2 ;
-						}
+					for(Entity d:entities)
+					{
+						if (d != e)
+							if(((Ball) e).checkCollision(d))
+							{
+								((Player) d).randomDecalageIA = new Random().nextFloat()*d.height/2 - d.height/2 ;
+							}
+					}
 				}
 			}
-		}
-		
-		for(Entity e:entities)
-		{
-			if(e instanceof Player)
+			
+			for(Entity e:entities)
 			{
-				if (e == user)
-					e.update(user_y);
+				if(e instanceof Player)
+				{
+					if (e == user)
+						e.update(user_y);
+					else
+					{
+						e.update(enemy_y);
+					}
+				}
 				else
 				{
-					e.update(enemy_y);
-				}
-			}
-			else
-			{
-				if(!isIA && !ServerUDP.server)
-				{
-					e.update();
-					e.dx = ball_dx;
-					e.dy = ball_dy;
-					e.pos_x = ball_x ;
-					e.pos_y = ball_y ;
+					if(!isIA && !ServerUDP.server)
+					{
+						e.update();
+						e.dx = ball_dx;
+						e.dy = ball_dy;
+						e.pos_x = ball_x ;
+						e.pos_y = ball_y ;
+						
+						
+					}
+					
+					if(isIA)
+					{
+						Random rnd = new Random();
+						enemy_y = e.pos_y + 100 - rnd.nextInt(200);
+						e.update();
+					}
+					
+					
+					if(!isIA && ServerUDP.server)
+					{
+						e.update();
+						ball_x = e.pos_x ;
+						ball_y = e.pos_y ;
+						ball_dx = e.dx;
+						ball_dy = e.dy;
+					}
 					
 					
 				}
-				
-				if(isIA)
-				{
-					Random rnd = new Random();
-					enemy_y = e.pos_y + 100 - rnd.nextInt(200);
-					e.update();
-				}
-				
-				
-				if(!isIA && ServerUDP.server)
-				{
-					e.update();
-					ball_x = e.pos_x ;
-					ball_y = e.pos_y ;
-					ball_dx = e.dx;
-					ball_dy = e.dy;
-				}
-				
-				
 			}
 		}
 	}
