@@ -18,17 +18,6 @@
         android:text="Player VS Player" />
 
     <Button
-        android:id="@+id/startIA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/startPalyer"
-        android:layout_alignRight="@+id/startPalyer"
-        android:layout_below="@+id/startPalyer"
-        android:layout_marginTop="23dp"
-        android:onClick="startIA"
-        android:text="Player VS IA" />
-
-    <Button
         android:id="@+id/settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,16 +28,6 @@
         android:text="Settings" />
 
     <Button
-        android:id="@+id/quit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/startIA"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="29dp"
-        android:onClick="quit"
-        android:text="Quit" />
-
-    <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,5 +36,35 @@
         android:layout_below="@+id/settings"
         android:layout_marginTop="23dp"
         android:text="Help" />
+
+    <Button
+        android:id="@+id/quit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/startIA"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="25dp"
+        android:onClick="quit"
+        android:text="Quit" />
+
+    <EditText
+        android:id="@+id/ipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/startPalyer"
+        android:layout_alignRight="@+id/startPalyer"
+        android:layout_below="@+id/startPalyer"
+        android:ems="10"
+        android:hint="IP Address" />
+
+    <Button
+        android:id="@+id/startIA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ipText"
+        android:layout_alignRight="@+id/startPalyer"
+        android:layout_below="@+id/ipText"
+        android:onClick="startIA"
+        android:text="Player VS IA" />
 
 </RelativeLayout>

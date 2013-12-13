@@ -1,6 +1,7 @@
 package unilim.projet.ponk;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 public class GameActivity extends Activity {
 
 	public ServerUDP t;
+	private boolean multi = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +25,18 @@ public class GameActivity extends Activity {
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		setContentView(R.layout.activity_game);
-		t = new ServerUDP();
-		t.setRunning(true);
-		try
+		Intent i = getIntent();
+		
+		if (i.getExtras().getString("IP") != null)
 		{
-        t.start();
-		}catch(Exception e)
-		{
-			Log.v("laucnh","FSDFGSF");
-			e.printStackTrace();
+			this.multi = true;
+			t = new ServerUDP(i.getExtras().getString("IP"));
+			t.setRunning(true);
+	        t.start();
+	        t.tryToConnect();
 		}
+		
+		GameModel.isIA = i.getExtras().getBoolean("IA");
 	}
 	
 	@Override
@@ -40,8 +44,11 @@ public class GameActivity extends Activity {
 	{
 		super.onPause();
 		Log.v("activity","Game Activity on Pause");
-        t.setRunning(false);
-        t.interrupt();
+		if(multi)
+		{
+	        t.setRunning(false);
+	        t.interrupt();
+		}
 	}
 	
 	
@@ -49,8 +56,11 @@ public class GameActivity extends Activity {
 	protected void onDestroy()
 	{
 		super.onDestroy();
-		t.setRunning(false);
-	    t.interrupt();
+		if(multi)
+		{
+			t.setRunning(false);
+		    t.interrupt();
+		}
 
 	}
 	

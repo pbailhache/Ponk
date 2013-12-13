@@ -16,13 +16,21 @@ public class GameModel
 	public static float ballSizeRatio = 0.15f;
 	public static float initialBallSpeedRatio = 0.2f;
 	
+	public static boolean isIA = false;
+	
 	private ArrayList<Entity> entities;
 		
 	private Player user;
 	
 	public static float user_y;
 	
-	public float enemy_y;
+	public static float enemy_y;
+	
+	public static float ball_x;
+	public static float ball_y;
+	
+	public static float ball_dx;
+	public static float ball_dy ;
 	
 	public float screen_width;
 	public float screen_height;
@@ -78,12 +86,40 @@ public class GameModel
 				if (e == user)
 					e.update(user_y);
 				else
-					e.update(user_y);
+				{
+					e.update(enemy_y);
+				}
 			}
 			else
-			{				
-				enemy_y = e.pos_y;
-				e.update();
+			{
+				if(!isIA && !ServerUDP.server)
+				{
+					e.dx = ball_dx;
+					e.dy = ball_dy;
+					e.pos_x = ball_x ;
+					e.pos_y = ball_y ;
+					
+				}
+				
+				if(isIA)
+				{
+					//Parkinson IA
+					Random rnd = new Random();
+					enemy_y = e.pos_y + 100 - rnd.nextInt(200);
+					e.update();
+				}
+				
+				
+				if(!isIA && ServerUDP.server)
+				{
+					e.update();
+					ball_x = e.pos_x ;
+					ball_y = e.pos_y ;
+					ball_dx = e.dx;
+					ball_dy = e.dy;
+				}
+				
+				
 			}
 		}
 	}
@@ -98,6 +134,11 @@ public class GameModel
 		int playerHeight = (int) (screen.height()*GameModel.playerHeightRatio); 
 		int ballSize = (int) (playerHeight*GameModel.ballSizeRatio); 
 		int ballDelta = (int) (ballSize*GameModel.initialBallSpeedRatio);
+		
+		ball_x = (screen.width()/2)-ballSize;
+		ball_y = (screen.height()/2)-ballSize;
+		ball_dx = ballDelta;
+		ball_dy = ball_dx;
 		
 		return (new GameModel(screen, 
 					new Player(playerWidth,playerHeight, screen.width()-2*playerWidth*1.5f, (screen.height()/2) -playerHeight, 0, 0, GameView.playerP), 

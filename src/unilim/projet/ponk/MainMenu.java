@@ -2,11 +2,13 @@ package unilim.projet.ponk;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainMenu extends Activity 
 {
@@ -34,13 +36,17 @@ public class MainMenu extends Activity
 	public void start(View v)
 	{
 		Intent intent = new Intent(this, GameActivity.class);
+		intent.putExtra("IA", false);
+		intent.putExtra("IP", ((TextView) findViewById(R.id.ipText)).getText().toString());
 		startActivity(intent);
 	}
 	
 	public void startIA(View v){
 		Intent intent = new Intent(this, GameActivity.class);
+		intent.putExtra("IA", true);
 		startActivity(intent);
 	}
+	
 	
 	public void quit(View v)
 	{
