@@ -73,6 +73,7 @@ public class Ball extends Entity
 	 */
 	public boolean checkCollision(Entity e) //Collison en axis X
 	{
+		
 		 if( e.pos_x < this.screen_width/2) // GAUCHE DE l'écran
 		 {
 			 if(this.pos_x < e.pos_x && (this.pos_y > e.pos_y+e.height || this.pos_y + this.height < e.pos_y))
@@ -80,7 +81,7 @@ public class Ball extends Entity
 				 GameView.scorePlayerOne++;
 				 if ( GameView.scorePlayerOne==GameView.maxScore){
 					// Stop thread le jeu est fini
-					 
+					 GameActivity.bfini=true ;
 				 }
 				 else {
 					 int ballDelta = (int) (this.width*GameModel.initialBallSpeedRatio);
@@ -128,33 +129,38 @@ public class Ball extends Entity
 			 if(this.pos_x > e.pos_x + e.width && (this.pos_y > e.pos_y+e.height || this.pos_y + this.height < e.pos_y))
 			 {
 				 GameView.scorePlayerTwo++;
-				 
-				 int ballDelta = (int) (this.width*GameModel.initialBallSpeedRatio);
-				 
-				 this.pos_x = (this.screen_width/2)-this.width;
-				 this.pos_y = (this.screen_height/2)-this.width;
-				 Random rnd = new Random();
-				 
-				 if (rnd.nextBoolean())
-				 {
-					 this.dx = -ballDelta;
+				 if ( GameView.scorePlayerOne==GameView.maxScore){
+						// Stop thread le jeu est fini
+						 GameActivity.bfini=true ;
 				 }
-				 else
-				 {
-					 this.dx = ballDelta;
-				 }
+				 else {
+					 int ballDelta = (int) (this.width*GameModel.initialBallSpeedRatio);
+					 
+					 this.pos_x = (this.screen_width/2)-this.width;
+					 this.pos_y = (this.screen_height/2)-this.width;
+					 Random rnd = new Random();
+					 
+					 if (rnd.nextBoolean())
+					 {
+						 this.dx = -ballDelta;
+					 }
+					 else
+					 {
+						 this.dx = ballDelta;
+					 }
+					 
+	
+					 if (rnd.nextBoolean())
+					 {
+						 this.dy = -ballDelta;
+					 }
+					 else
+					 {
+						 this.dy = ballDelta;
+					 }
 				 
-
-				 if (rnd.nextBoolean())
-				 {
-					 this.dy = -ballDelta;
+					 return true;
 				 }
-				 else
-				 {
-					 this.dy = ballDelta;
-				 }
-				 
-				 return true;
 			 }
 			 
 			 if(this.pos_x + this.width > e.pos_x && this.pos_y  < e.pos_y+e.height && this.pos_y + this.height > e.pos_y)

@@ -15,8 +15,11 @@ import android.view.WindowManager;
  */
 public class GameActivity extends Activity {
 
+	public static boolean bpause = false ;
+	public static boolean bfini = false ;
 	public ServerUDP t;
 	private boolean multi = false;
+	
 	
 	/**
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -59,6 +62,11 @@ public class GameActivity extends Activity {
 		}
 	}
 	
+	
+	public void pause(View w){
+		bpause = !bpause ; 
+		Log.v("pause", ""+bpause);
+	}
 	
 	/**
 	 * @see android.app.Activity#onDestroy()
