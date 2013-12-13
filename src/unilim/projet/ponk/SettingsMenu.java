@@ -12,6 +12,10 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+/**
+ * Acitivity which contains all the settings available to the user.
+ * @author Barraud
+ */
 public class SettingsMenu extends Activity {
 
 	 public SeekBar mySeekBarBall ;
@@ -20,6 +24,10 @@ public class SettingsMenu extends Activity {
 	 public Spinner mySpinnerBallColor;
 	 public Spinner mySpinnerPlayerColor;
 	 public Spinner mySpinnerBackgroundColor;
+	
+	/**
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,6 +66,9 @@ public class SettingsMenu extends Activity {
 
 	}	
 
+	/**
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -65,7 +76,7 @@ public class SettingsMenu extends Activity {
 		return true;
 	}
 	
-	/*
+	/**
 	 * Return integer wich indicate a position of a color
 	 * into arrayColor
 	 */
@@ -89,7 +100,8 @@ public class SettingsMenu extends Activity {
 			return 5;
 		}		
 	}
-	/*
+	
+	/**
 	 * Return integer wich indicate a position of a color
 	 * into arrayColor
 	 */
@@ -113,7 +125,8 @@ public class SettingsMenu extends Activity {
 			return 5;
 		}		
 	}
-	/*
+	
+	/**
 	 * Return integer wich indicate a position of a color
 	 * into arrayColor
 	 */
@@ -138,6 +151,10 @@ public class SettingsMenu extends Activity {
 		}		
 	}
 	
+	/**
+	 * @param color
+	 * @return
+	 */
 	public int returnColor(String color){
 		Log.v("Color return",color);
 		if ( color.equals("Noir")){
@@ -161,7 +178,10 @@ public class SettingsMenu extends Activity {
 		}
 		
 	}
-	// Save a data into 
+
+	/**
+	 * @param v
+	 */
 	public void onClickSave(View v){
 		
 		String colorPlayer = String.valueOf(mySpinnerPlayerColor.getSelectedItem());
@@ -177,7 +197,10 @@ public class SettingsMenu extends Activity {
 		GameModel.playerHeightRatio=((float)mySeekBarPlayer.getProgress()/100);
 		
 	}
-	// Quit Settings and return Main Menu
+
+	/**
+	 * @param v
+	 */
 	public void onClickQuit(View v){
 		Intent intent = new Intent(this, MainMenu.class);
 		startActivity(intent);

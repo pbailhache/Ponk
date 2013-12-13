@@ -4,12 +4,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+/**
+ * Entity class which is the super-class of all game objects.
+ * @author Nivtitif
+ */
 public abstract class Entity 
 {
 	public int width;
 	public int height;
 	
-	public float pos_x; // Coin En haut à gauche du rectangle
+	public float pos_x; 
 	public float pos_y;
 	
 	public float dx;
@@ -20,6 +24,15 @@ public abstract class Entity
 	
 	public Paint paint;
 	
+	/**
+	 * @param w
+	 * @param h
+	 * @param x
+	 * @param y
+	 * @param dx
+	 * @param dy
+	 * @param paint
+	 */
 	public Entity(int w, int h, float x, float y, float dx, float dy,Paint paint)
 	{
 		this.width = w;
@@ -31,8 +44,14 @@ public abstract class Entity
 		this.paint = paint;
 	}
 	
+	/**
+	 * @param user_y
+	 */
 	public abstract void update(float user_y);
 	
+	/**
+	 * Update and move the entity
+	 */
 	public void update()
 	{
 		checkInBoundaries();
@@ -68,6 +87,9 @@ public abstract class Entity
 		}
 	}
 	
+	/**
+	 * @param canvas
+	 */
 	public void draw(Canvas canvas) 
 	{
 		// TODO Auto-generated method stub
@@ -76,6 +98,8 @@ public abstract class Entity
 
 	/**
 	 * Change the screen value (used for checkBoundaries)
+	 * @param screen_width
+	 * @param screen_height
 	 */
 	public void setScreen(float screen_width, float screen_height) 
 	{

@@ -10,11 +10,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
+/**
+ * First Activity displayed to user. Contains all options for the users.
+ * @author Nivtitif
+ */
 public class MainMenu extends Activity 
 {
 
 	private Button start, quit,settings, startIA;
 	
+	/**
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +34,9 @@ public class MainMenu extends Activity
 		
 	}
 
+	/**
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -33,6 +44,9 @@ public class MainMenu extends Activity
 		return true;
 	}
 	
+	/**
+	 * @param v
+	 */
 	public void start(View v)
 	{
 		Intent intent = new Intent(this, GameActivity.class);
@@ -41,6 +55,9 @@ public class MainMenu extends Activity
 		startActivity(intent);
 	}
 	
+	/**
+	 * @param v
+	 */
 	public void startIA(View v){
 		Intent intent = new Intent(this, GameActivity.class);
 		intent.putExtra("IA", true);
@@ -48,11 +65,17 @@ public class MainMenu extends Activity
 	}
 	
 	
+	/**
+	 * @param v
+	 */
 	public void quit(View v)
 	{
 		finish();          
 	}
 	
+	/**
+	 * @param v
+	 */
 	public void settings(View v)
 	{
 		Intent intent = new Intent(this, SettingsMenu.class);

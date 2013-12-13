@@ -1,27 +1,23 @@
-/**
- * 
- */
+
 
 package unilim.projet.ponk;
-
-import java.util.Random;
-
-import unilim.projet.ponk.Entity.*;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 
+/**
+ * View of the game, extends SurfaceView, host the GameThread which compute the model
+ * @author Nivtitif
+ */
 public class GameView extends SurfaceView implements Callback{
 
 	private GameThread thread;
@@ -46,10 +42,18 @@ public class GameView extends SurfaceView implements Callback{
 	public static Paint playerP = new Paint();
 	public static Paint ballP = new Paint();
 	
+	/**
+	 * @param context
+	 */
 	public GameView(Context context) {
 		super(context);
 	}
 	
+	/**
+	 * @param context
+	 * @param attrs
+	 * @param defStyle
+	 */
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
 	}
@@ -57,6 +61,8 @@ public class GameView extends SurfaceView implements Callback{
 	
 	/**
 	 * Create and add the surface Holder for GameThread
+	 * @param context
+	 * @param attrs
 	 */
 	public GameView(Context context, AttributeSet attrs) {
 	    super(context, attrs);
@@ -74,6 +80,9 @@ public class GameView extends SurfaceView implements Callback{
 	    thread = new GameThread(holder);
 	}
 
+	/**
+	 * @see android.view.SurfaceHolder.Callback#surfaceChanged(android.view.SurfaceHolder, int, int, int)
+	 */
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
@@ -82,6 +91,9 @@ public class GameView extends SurfaceView implements Callback{
 		
 	}
 
+	/**
+	 * @see android.view.SurfaceHolder.Callback#surfaceCreated(android.view.SurfaceHolder)
+	 */
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
@@ -112,6 +124,9 @@ public class GameView extends SurfaceView implements Callback{
 	
 	
 
+	/**
+	 * @see android.view.SurfaceHolder.Callback#surfaceDestroyed(android.view.SurfaceHolder)
+	 */
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
@@ -129,15 +144,23 @@ public class GameView extends SurfaceView implements Callback{
 
 	/**
 	 * Thread class which do all the game loop
+	 * @author Nivtitif
+	 *
 	 */
 	class GameThread extends Thread {
         private  boolean mRun;       
         private SurfaceHolder mSurfaceHolder;        
 
+        /**
+         * @param surfaceHolder
+         */
         public GameThread(SurfaceHolder surfaceHolder) {
             mSurfaceHolder = surfaceHolder;
         }
 
+        /**
+         * @see java.lang.Thread#run()
+         */
         @Override
         public void run() {
             while (mRun) {
@@ -163,6 +186,7 @@ public class GameView extends SurfaceView implements Callback{
         
         /**
          * Draw Game from model (see model in GameView)
+         * @param canvas
          */
         private void doDraw(Canvas canvas) 
         {
@@ -183,6 +207,9 @@ public class GameView extends SurfaceView implements Callback{
             
         }
         
+        /**
+         * @param b
+         */
         public void setRunning(boolean b) {
             mRun = b;
         }

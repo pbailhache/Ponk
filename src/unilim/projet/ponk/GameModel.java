@@ -9,6 +9,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+/**
+ * Model of the game, manage all game entities and game related functions
+ * @author Nivtitif
+ */
 public class GameModel 
 {
 	public static float playerWidthRatio = 0.04f;
@@ -36,6 +40,12 @@ public class GameModel
 	public float screen_height;
 	
 	
+	/**
+	 * @param screen
+	 * @param p1
+	 * @param p2
+	 * @param b
+	 */
 	public GameModel(Rect screen, Player p1,Player p2,Ball b)
 	{
 		
@@ -51,6 +61,9 @@ public class GameModel
 		this.screenModified(screen);
 	}
 	
+	/**
+	 * @param canvas
+	 */
 	public void draw(Canvas canvas)
 	{
 		for(Entity e:entities)
@@ -94,16 +107,17 @@ public class GameModel
 			{
 				if(!isIA && !ServerUDP.server)
 				{
+					e.update();
 					e.dx = ball_dx;
 					e.dy = ball_dy;
 					e.pos_x = ball_x ;
 					e.pos_y = ball_y ;
 					
+					
 				}
 				
 				if(isIA)
 				{
-					//Parkinson IA
 					Random rnd = new Random();
 					enemy_y = e.pos_y + 100 - rnd.nextInt(200);
 					e.update();
@@ -127,6 +141,8 @@ public class GameModel
 	
 	/**
 	 * Re-create a model from constants. Use it when changing these constants or creating the model
+	 * @param screen
+	 * @return
 	 */
 	public static GameModel createModel(Rect screen)
 	{
@@ -148,6 +164,7 @@ public class GameModel
 	
 	/**
 	 * Update each entity with the proper screen size (conserving ratios)
+	 * @param screen
 	 */
 	public void screenModified(Rect screen)
 	{
@@ -172,7 +189,7 @@ public class GameModel
 				}
 				else
 				{
-					TMPentities.add(new Player(playerWidth,playerHeight, playerWidth, (screen_height/2)-playerHeight, 0, 0, GameView.ballP));
+					TMPentities.add(new Player(playerWidth,playerHeight, playerWidth, (screen_height/2)-playerHeight, 0, 0, GameView.playerP));
 				}
 			}
 			else

@@ -10,12 +10,17 @@ import android.view.WindowManager;
 
 /**
  * Activity which host the GameView and the UDP Server
+ * @author Nivtitif
+ *
  */
 public class GameActivity extends Activity {
 
 	public ServerUDP t;
 	private boolean multi = false;
 	
+	/**
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +44,9 @@ public class GameActivity extends Activity {
 		GameModel.isIA = i.getExtras().getBoolean("IA");
 	}
 	
+	/**
+	 * @see android.app.Activity#onPause()
+	 */
 	@Override
 	protected void onPause()
 	{
@@ -52,6 +60,9 @@ public class GameActivity extends Activity {
 	}
 	
 	
+	/**
+	 * @see android.app.Activity#onDestroy()
+	 */
 	@Override
 	protected void onDestroy()
 	{
@@ -64,12 +75,12 @@ public class GameActivity extends Activity {
 
 	}
 	
+	/**
+	 * @see android.app.Activity#onResume()
+	 */
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
-//		t = new ServerUDP();
-//		t.setRunning(true);
-//        t.start();
 	}
 }

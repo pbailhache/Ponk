@@ -13,6 +13,10 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
+/**
+ * UDP Server with protocol for connection
+ * @author Nivtitif
+ */
 public class ServerUDP extends Thread 
 {
 		private boolean mRun;
@@ -44,6 +48,7 @@ public class ServerUDP extends Thread
 
         /**
          * Run the server until interrupted
+         * @see java.lang.Thread#run()
          */
         @Override
         public void run()
@@ -194,6 +199,9 @@ public class ServerUDP extends Thread
         
         
 
+        /**
+         * @param b
+         */
         public void setRunning(boolean b) 
         {
         	Log.v("socket","mRun ="+b);

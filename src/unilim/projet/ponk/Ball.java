@@ -6,6 +6,10 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 
+/**
+ * Ball entity with collision and score checking
+ * @author Nivtitif
+ */
 public class Ball extends Entity
 {
 	public static float maxSpeedRatio = 1f;
@@ -13,6 +17,15 @@ public class Ball extends Entity
 	public static float dyAngleRatio = 1.5f;
 	public static float rePopRatio = 0.5f;
 	
+	/**
+	 * @param w
+	 * @param h
+	 * @param x
+	 * @param y
+	 * @param dx
+	 * @param dy
+	 * @param paint
+	 */
 	public Ball(int w, int h, float x, float y, float dx, float dy,
 			Paint paint) {
 		super(w, h, x, y, dx, dy, paint);
@@ -21,6 +34,10 @@ public class Ball extends Entity
 	
 	/**
 	 * Return dy from impact with paddle
+	 * @param impact_y
+	 * @param bot
+	 * @param p_height
+	 * @return
 	 */
 	private float calculDy(float impact_y, float bot, float p_height)
 	{
@@ -51,6 +68,8 @@ public class Ball extends Entity
 	
 	/**
 	 * CHeck collision with entity e and adjust dx and dy with proper value if it's the case
+	 * @param e
+	 * @return
 	 */
 	public boolean checkCollision(Entity e) //Collison en axis X
 	{
@@ -152,6 +171,9 @@ public class Ball extends Entity
 		 return false;
 	}
 	
+	/**
+	 * @see unilim.projet.ponk.Entity#update(float)
+	 */
 	@Override
 	public void update(float user_y) {
 		// TODO Auto-generated method stub
